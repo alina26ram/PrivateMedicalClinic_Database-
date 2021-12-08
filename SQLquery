@@ -1,0 +1,797 @@
+--Create database and tables-- 
+
+create database Clinica_medicala_privata_f
+use Clinica_medicala_privata_f
+
+create table Clinica 
+(
+ID int primary key,
+Nume nvarchar(50),
+Adresa nvarchar(50),
+Telefon nvarchar(20)
+)
+
+create table Cabinet
+(
+Cod int primary key not null,
+Numar int,
+Etaj int,
+Clinica int,
+Personal nvarchar (20),
+Pacient nvarchar (20)  
+)
+
+create table Personal
+(
+CNP nvarchar (20) primary key,
+Nume nvarchar(50),
+Prenume nvarchar(50),
+Adresa nvarchar(50),
+Vechime int,
+Salariu float,
+Telefon nvarchar(20)
+)
+
+create table Post 
+(
+Cod int primary key,
+Tip nvarchar(50),
+Personal  nvarchar(20)
+)
+
+create table Specializari
+(
+Cod int primary key not null,
+Specializari nvarchar (50),
+Post int
+)
+
+
+create table Servicii 
+(
+Cod int primary key,
+Nume nvarchar(50),
+Pacient nvarchar(20)
+)
+
+create table Programari 
+(
+Cod_programare int primary key not null,
+Data_programarii date,
+Ora_programarii time,
+Personal nvarchar(20),
+Pacient nvarchar(20)
+)
+
+
+create table Inregistrari
+(
+Numar int primary key,
+Data_inregistrare date,
+Diagnostic nvarchar(50), 
+Personal nvarchar(20),
+Pacient nvarchar(20)
+)
+
+create table Pacient 
+(
+CNP nvarchar(20) primary key,
+Nume nvarchar(50),
+Prenume nvarchar (50),
+Adresa nvarchar (50),
+Ocupatia nvarchar (50),
+Loc_de_munca nvarchar (50)
+)
+
+create table Factura 
+(
+ID int primary key,
+Data_factura date, 
+Valoare float, 
+Pacient nvarchar(20)
+)
+
+
+create table Tratament 
+(
+ID int primary key,
+Data_inceput date,
+Data_sfarsit date,
+Reteta int
+)
+
+
+create table Reteta 
+(
+Cod int primary key,
+Tip nvarchar(50), 
+Pacient nvarchar(20)
+)
+
+create table Medicament
+(
+Cod int primary key,
+Nume nvarchar (50),
+Indicatii nvarchar(50),
+Reteta int,
+Tratament int
+)
+
+create table MedicamenteRetete
+(
+Id_reteta int,
+Id_medicament int
+)
+
+create table Impozite 
+(
+Id_impozit int primary key not null,
+Denumire nvarchar (20),
+Procent float
+)
+
+create table ImpoziteFacturi 
+(
+Id_impozit int,
+Id_factura int
+)
+
+--Insert data in tables--
+
+insert into Clinica values (14568, 'Eva Center', 'str. Vlad Tepes, nr. 15', '+40718387798')
+
+insert into Cabinet values (456, 1, 0, 14568,'2680416380075','1721128190566')
+insert into Cabinet values (784, 2, 0, 14568,'2770605460021','2390818330068')
+insert into Cabinet values (122, 3, 0, 14568,'1850807250019','2390818330068')
+insert into Cabinet values (736, 4, 0, 14568,'2691128430090','1590218260021')
+insert into Cabinet values (487, 5, 1, 14568,'1840802040085','2390818330068')
+insert into Cabinet values (455, 1, 0, 14568,'1860725360069','2800114100069')
+insert into Cabinet values (489, 5, 1, 14568,'1631214430046','1721128190566')
+insert into Cabinet values (846, 4, 0, 14568,'2641121120057','6020724440029')
+insert into Cabinet values (453, 2, 0, 14568,'1620415130090','5020415120017')
+insert into Cabinet values (213, 3, 0, 14568,'1740423390020','2800114100069')
+insert into Cabinet values (985, 1, 0, 14568,'2760419290023','2390818330068')
+insert into Cabinet values (548, 6, 1, 14568,'1630406150035','6020724440029')
+insert into Cabinet values (789, 7, 1, 14568,'2620709150034','5020415120017')
+insert into Cabinet values (564, 8, 1, 14568,'2631126430068','2390818330068')
+insert into Cabinet values (654, 8, 1 ,14568,'1680804160091','5020415120017')
+
+insert into Personal values ('2680416380075', 'Antonescu','Marcela','Str. Universitatii nr 854',20, 6000.000, '+40716465749') 
+insert into Personal values ('1850807250019', 'Pavel','Stefan','P-ta Unirii nr 33',2, 2500.000, '+40725595168')
+insert into Personal values ('1860725360069', 'Georgescu','Olimpiu ','P-ța Aurel Vlaicu nr. 5/5, bl. 57, et. 11, ap. 3',3, 2530.000, '+40778954645')
+insert into Personal values ('1631214430046', 'Ionita','David ','B-dul. Piersicului 3A',25, 7500.000, '+40726549575')
+insert into Personal values ('2641121120057', 'Croitoru','Carmen ','Str. Castanilor 8',23, 6500.000, '+40792289248')
+insert into Personal values ('1630406150035', 'Muntean','Simion ','Aleea Brăduțului nr. 3A, bl. 04, sc. C, et. 29, ap. 5',23, 6500.000, '+40715948616')
+insert into Personal values ('1680804160091', 'Mihaila','Ion ','Str. Decebal nr. 05, bl. B, sc. C, et. 0, ap. 4',18, 4750.000, '+40748563232')
+insert into Personal values ('1740423390020', 'Opris','Cătălin ','Splaiul Aurel Vlaicu 0A',14, 3500.000, '+40787461532')
+insert into Personal values ('2630329410018', 'Niculae','Anaida','Splaiul Frasinului 59',25, 7500.000, '+40786235478')
+insert into Personal values ('2620709150034', 'Balan','Angela ','P-ța Făget nr. 770, bl. B, sc. A, et. 2, ap. 89',26, 6500.000, '+40715648554')
+insert into Personal values ('2691128430090', 'Niculescu','Emanuela','Aleea Pădurii nr. 3, bl. A, ap. 52',17, 4500.000, '+40786523148')
+insert into Personal values ('2770605460021', 'Micu','Ioana ','P-ța Mesteacănului nr. 1, bl. 99, ap. 66',10, 3000.000, '+40748964633')
+insert into Personal values ('1840802040085', 'Pintilie','Oliviu ','Splaiul Păcurari 6A',4, 2700.000, '+40722588648')
+insert into Personal values ('1710517260086', 'Ivan','Dorinel ','Str. Horea 55',17, 4500.000, '+40748554870')
+insert into Personal values ('1620415130090', 'Nastase','Crin ','Calea J.J Rousseau 8/3',24, 6500.000, '+40756489456')
+insert into Personal values ('2631126430068', 'Iordache','Lucreția','B-dul. Salcâmilor nr. 5B, bl. 3, et. 29, ap. 40',23, 6500.000, '+40795214953')
+insert into Personal values ('1810515210064', 'Avram','Mihail ','P-ța Muncii 7/1',19, 4900.000, '+40789562325')
+insert into Personal values ('2760419290023', 'Muresan','Marina ','B-dul. Traian nr. 789, bl. 04, et. 7, ap. 4',16, 4100.000, '+40798546210')
+insert into Personal values ('1650929090064', 'Moga','Antim ','Calea Muncii 8/7',22, 5050.000, '+40745852025')
+insert into Personal values ('2830416160071', 'Ivascu','Dana ','Splaiul Ion Creangă nr. 4/6, bl. A, ap. 70',3, 2600.000, '+40795331598')
+
+insert into Post values (1, 'medic','2680416380075')
+insert into Post values (2, 'asistent/a', '1850807250019')
+insert into Post values (3, 'administrator','1740423390020')
+insert into Post values (4, 'femeie de serviciu','2830416160071') 
+insert into Post values (5,'asistent/a','1840802040085')
+insert into Post values (6,'medic','2760419290023')
+insert into Post values (7,'asistent/a','1631214430046')
+insert into Post values (8,'medic','1650929090064')
+insert into Post values (9,'asistent/a','1860725360069')
+insert into Post values (10,'asistent/a','1710517260086')
+insert into Post values (11,'medic','2631126430068')
+insert into Post values (12,'asistent/a','1680804160091')
+insert into Post values (13,'medic','1620415130090')
+insert into Post values (14,'medic','2630329410018')
+insert into Post values (15,'administrator','1630406150035')
+insert into Post values (16,'medic','2620709150034')
+insert into Post values (17,'femeie de serviciu','2641121120057')
+insert into Post values (18,'medic','2691128430090')
+insert into Post values (19,'medic','2770605460021')
+insert into Post values (20, 'medic','1840802040085')
+
+insert into Servicii values (1, 'analize', '1721128190566', 122)
+insert into Servicii values (2, 'consultatie','1830529140021', 213)
+insert into Servicii values (3,'terapie','2800114100069',487)
+insert into Servicii values (4,'consultatie','2390818330068',456)
+insert into Servicii values (5,'analize','6120225460075',489)
+insert into Servicii values (6,'analize','5020415120017',455)
+insert into Servicii values (7,'terapie','6120225460075',564)
+insert into Servicii values (8,'consultatie','5020415120017',453)
+insert into Servicii values (9,'terapie','6020724440029',654)
+
+insert into Programari values (1, '2020-3-18', '12:00','1620415130090','1721128190566',455)
+insert into Programari values (2,'2021-1-26','16:00','1710517260086','2510715330020',654)
+insert into Programari values (3,'2020-12-13','10:00','1631214430046','6020724440029',489)
+insert into Programari values (4,'2019-5-30','10:30', '1710517260086','2390818330068',489)
+insert into Programari values (5,'2018-06-7','11:00','2620709150034', '2800114100069',564)
+insert into Programari values (6, '2018-09-28','13:00','1850807250019','2800114100069',736)
+
+insert into Inregistrari values (1, '2020-06-07', 'dermatita seboreica','1650929090064','6020724440029')
+insert into Inregistrari values (2,'2020-9-18','gastrita','1710517260086','2800114100069')
+insert into Inregistrari values (3,'2021-01-06', 'miopie', '1810515210064','6050503150042')
+insert into Inregistrari values (4, '2019-07-29', 'psoriazis','1680804160091','1830529140021')
+insert into Inregistrari values (5,'2018-09-27', 'hipotiroidie','2620709150034','1590218260021')
+insert into Inregistrari values (6,'2018-08-31','nevroza','1740423390020','2390818330068')
+
+insert into Pacient values ('1721128190566', 'Catana','Relu','str. Pacii nr 45','agent de securitate','Tiger Security')
+insert into Pacient values ('2390818330068','Stanila','Ioana','str. Nicolae Barbu nr 56','pensionar/a','-')
+insert into Pacient values ('1590218260021','Marcu','Theodor','str. Popestilor nr 87','sofer','LibertTrans')
+insert into Pacient values ('2510715330020','Florea','Bianca-Ionela','str. Traian nr. 3A, bl. C, ap. 17','Camera Repairer','Oltean-Mihaila Inc')
+insert into Pacient values ('2960207440098','Varga','Viorica','Calea Salcâmilor nr. 3A, bl. B, sc. D, et. 5, ap. 88','Central Office Operator','Vasile LLC and Sons')
+insert into Pacient values ('6120225460075','Enache','Maria','P-ța Eroilor 9A','elev/a','Soala Gimnaziala Miahi Eminescu')
+insert into Pacient values ('2721105060058','Suciu','Hortensia','P-ța Franklin Delano Rosevelt nr. 057, bl. B, et. 27, ap. 1','Retail Sales person','Avram and Sons PLC')
+insert into Pacient values ('6020724440029','Bodea','Savina','Splaiul Padiș 6','elev/a','Colegiul National "Mihai Eminescu"')
+insert into Pacient values ('6050503150042','Balint','Severina','Aleea Decebal 6/0','Maintenance Equipment Operator','Neagu-Dumitru Ltd')
+insert into Pacient values ('6090102440036','Burcea','Irina','P-ța Louis Pasteur nr. 7, bl. B, sc. D, et. 21, ap. 81','elev/a','Liceul Teoretic "Gheorghe Lazar"')
+insert into Pacient values ('5020415120017','Haralamb','Lazar','Calea Făget 97','Admin','Oancea, Barbu and Bodea Group')
+insert into Pacient values ('1991028100028','Petru','Simion','Str. Franklin Delano Rosevelt nr. 4/6, bl. 99, ap. 5','student/a','UniBuc')
+insert into Pacient values ('1790413070093','Ivan','Iordache','Str. Henri Coandă nr. 4, bl. A, ap. 07','Municipal Fire Fighter','Cojocaru, Dumitrescu and Mihalache PLC')
+insert into Pacient values ('1830529140021','Angel','Cazacu','P-ța Constantin Brâncuși 864','arhitect','Balan, Solomon and Dascalu PLC')
+insert into Pacient values ('2800114100069','Sima','Anemona','Str. Mihai Viteazul 1/3','Material Movers','Sandu, Sabau and Dumitrache PLC')
+
+insert into Factura values (1, '2020-06-18', 55.5, '2390818330068')
+insert into Factura values (2, '2021-01-30', 145.2,'5020415120017')
+insert into Factura values (3, '2019-04-25', 156.26,'6020724440029')
+insert into Factura values (4, '2018-03-09', 84.37, '5020415120017')
+insert into Factura values (5, '2018-09-28',650.4,'2800114100069')
+insert into Factura values (6, '2018-10-15', 135.15,'1590218260021')
+insert into Factura values (7,' 2019-07-26', 87.45, '6020724440029')
+insert into Factura values (8, '2019-08-31',854.25,'2390818330068')
+insert into Factura values (9,'2020-12-12', 489.06, '2800114100069')
+insert into Factura values (10, '2020-4-15', 37.8, '1590218260021')
+insert into Factura values (11,'2020-8-24',456,'2390818330068')
+insert into Factura values (12,'2020-5-21',756.25,'1721128190566')
+insert into Factura values (13,'2020-3-7',161,'6020724440029')
+insert into Factura values (14,'2020-2-28',568.45,'2390818330068')
+insert into Factura values (15,'2021-01-17',294, '1721128190566')
+insert into Factura values (16,'2021-01-9',554, '2390818330068')
+
+insert into Tratament values (1, '2020-06-18','2020-09-20')
+insert into Tratament values (2,'2020-07-26','2020-08-25')
+insert into Tratament values (3,'2019-6-7','2019-9-21')
+insert into Tratament values (4, '2019-3-9','2019-4-27')
+insert into Tratament values (5,'2018-10-4','2018-12-23')
+insert into Tratament values (6,'2018-9-23','2018-11-6')
+insert into Tratament values (7,'2019-3-29','2019-06-27')
+insert into Tratament values (8,'2020-7-29','2020-8-31')
+insert into Tratament values (9,'2020-5-4', '2020-8-7')
+insert into Tratament values (10,'2019-12-28', '2020-01-31')
+
+insert into Reteta values (1, 'compensata','5020415120017')
+insert into Reteta values (2, 'gratuita', '2390818330068')
+insert into Reteta values (3, 'integrala', '2510715330020')
+insert into Reteta values (4, 'integrala', '6090102440036')
+insert into Reteta values (5, 'compensata', '2390818330068')
+insert into Reteta values (6,'integrala','6090102440036')
+insert into Reteta values (7,'gratuita','6120225460075')
+insert into Reteta values (8,'','2800114100069')
+insert into Reteta values (9,'gratuita','6120225460075')
+insert into Reteta values (10,'compensata','1590218260021')
+insert into Reteta values (11,'gratuita','2800114100069')
+insert into Reteta values (12,'integrala','1590218260021')
+insert into Reteta values (13,'compensata','2510715330020')
+insert into Reteta values (14,'compensata','2721105060058')
+insert into Reteta values (15,'integrala','2510715330020')
+insert into Reteta values (16,'integrala','6020724440029')
+insert into Reteta values (17,'integrala','1790413070093')
+insert into Reteta values (18,'integrala','2721105060058')
+insert into Reteta values (19,'compensata','2510715330020')
+insert into Reteta values (20,'compensata','1721128190566')
+insert into Reteta values (21,'compensata','1790413070093')
+insert into Reteta values (22,'integrala','1590218260021')
+insert into Reteta values (23,'integrala','6020724440029')
+insert into Reteta values (24,'compensata','1721128190566')
+insert into Reteta values (25,'integrala','1991028100028')
+insert into Reteta values (26,'integrala','2721105060058')
+insert into Reteta values (27,'gratuita','1721128190566')
+insert into Reteta values (28,'gratuita','1790413070093')
+insert into Reteta values (29,'integrala','1991028100028')
+insert into Reteta values (30,'integrala','1721128190566')
+insert into Reteta values (31,'compensata','6020724440029')
+
+insert into Medicament values (1,'paracetamol',' de 2 ori pe zi',1,3)
+insert into Medicament values (2,'nalgezin','o data pe zi',3,5)
+insert into Medicament values (3,'nervocalmin',' de 2 ori pe zi',3,6)
+insert into Medicament values (4,'unguent','se aplica dimineata si seara',5,6)
+insert into Medicament values (5,'calmant','se ia o data pe zi',7,4)
+insert into Medicament values (6,'doze cu iod','se ia una pe zi',10,8)
+insert into Medicament values (7,'kebene','inainte de fiecare masa',4,3)
+insert into Medicament values (8,'picaturi de ochi','la 8 ore',8,9)
+
+insert into Specializari values (1, 'oftalmologie', 1)
+insert into Specializari values (2, 'oftalmologie', 2)
+insert into Specializari values (3, 'psihologie', 6)
+insert into Specializari values (4, 'dermatologie', 5)
+insert into Specializari values (5, 'dermatologie', 8 )
+insert into Specializari values (6, 'endocrinologie', 11)
+insert into Specializari values (7, 'enterologie', 13)
+
+insert into Impozite values (1, 'somaj', 0.5)
+insert into Impozite values (2,'CASS', 10)
+insert into Impozite values (3, 'CAS',25)
+insert into Impozite values (4, 'Impozit pe venit', 10)
+
+insert into ImpoziteFacturi values (4,1)
+insert into ImpoziteFacturi values (4,2)
+insert into ImpoziteFacturi values (4,3)
+insert into ImpoziteFacturi values (4,4)
+insert into ImpoziteFacturi values (4,5)
+insert into ImpoziteFacturi values (4,6)
+insert into ImpoziteFacturi values (4,7)
+insert into ImpoziteFacturi values (4,8)
+insert into ImpoziteFacturi values (4,9)
+insert into ImpoziteFacturi values (4,10)
+insert into ImpoziteFacturi values (4,11)
+insert into ImpoziteFacturi values (4,12)
+insert into ImpoziteFacturi values (4,13)
+insert into ImpoziteFacturi values (4,14)
+insert into ImpoziteFacturi values (4,15)
+insert into ImpoziteFacturi values (4,16)
+
+--Queries--
+
+1--*/ Show the maximum value of a paid bill by a client
+
+select Max (Valoare) from Factura 
+
+
+2--*/ Show clients' diagnoses 
+
+select Diagnostic from Inregistrari
+inner join Pacient 
+on Inregistrari.Pacient=Pacient.CNP
+
+
+3--*/ Show how many doctors are in the clinic
+
+select Personal.Nume, count (Post.Personal) as Total
+from Post, Personal
+where Post.Tip='medic'
+Group by Personal.Nume
+
+
+4--*/ Add a column in Programare table so that shows that the appointment was done, canceled or delayed
+
+alter table Programari
+add Efectuare_programare nvarchar(50)
+
+select * from Programari 
+
+
+5--*/ Show the medicines administration indications
+
+select Nume, Medicament.Indicatii from Medicament
+inner join Reteta
+on Medicament.Reteta=Reteta.Cod
+
+
+6--*/ Show the employyes posts
+
+select Personal.Nume, Personal.Prenume, Post.Tip from Post  
+inner Join Personal 
+on Post.Personal=Personal.CNP
+
+
+7--*/ Show done appointments
+
+select * from Programari where Efectuare_programare='efectuata'
+
+
+8--*/ Show the canceled appointments in the second half of the day
+
+select * from Programari where Efectuare_programare='anulata' and Ora_programarii>'12:00'
+
+
+9--*/ Show the tax on the bills
+
+select ID, Impozite.Id_impozit, Denumire from Factura 
+inner join ImpoziteFacturi
+on ImpoziteFacturi.Id_factura=Factura.ID
+inner join Impozite
+on ImpoziteFacturi.Id_impozit= Impozite.Id_impozit
+
+
+10--*/ Show diagnoses of each patient
+
+select CNP, Nume, Prenume, Diagnostic from Pacient
+inner join Inregistrari 
+on Inregistrari.Pacient=Pacient.CNP
+
+
+11--*/ Count how many visits an office had in january
+
+select count(Cabinet) as NrViziteInIan from Programari  where month(Data_programarii)=1
+
+
+12--*/ Show the highest salary 
+
+select * from Personal where Salariu= (select Max(Personal.Salariu) as CelMaiMareSalariu from Personal)
+
+
+13--*/ Count the highest salaries of employees
+select count(Salariu) NrSalariilorCeleMaiMari from Personal where Salariu in (select Max(Salariu) from Personal) 
+
+
+14--*/ Show the sum paid by each patient
+
+select Nume, Prenume, Valoare from Factura 
+inner join Pacient 
+on Pacient.CNP=Factura.Pacient
+
+
+15--*/ Show what appointments the patient had
+
+select Nume, Prenume, Data_Programarii From Programari 
+inner join Pacient 
+on Pacient. CNP= Programari. Pacient
+
+
+16--*/ Show the appointment hour the patient had
+
+select Nume, Prenume, Ora_programarii from Programari
+inner join Pacient
+on Pacient. CNP= Programari. Pacient
+
+
+17--*/ Show the services the patient received
+
+select Pacient.Nume, Pacient.Prenume, Servicii.Nume from Servicii
+inner join Pacient
+on Pacient. CNP= Servicii. Pacient
+
+
+18--*/ Show the patient records and who recorded them
+
+select Pacient.Nume, Pacient.Prenume, Personal.Nume, Personal.Prenume, Inregistrari.Data_inregistrare,  Inregistrari.Diagnostic from Inregistrari
+inner join Pacient 
+on Pacient.CNP=Inregistrari.Pacient
+inner join Personal
+on Personal.CNP=Inregistrari.Personal
+
+
+19--*/ Show the clinic services and the staff
+
+select Personal.Nume, Personal.Prenume, Cabinet.Numar, Servicii.Nume from Cabinet
+inner join Personal
+on Personal.CNP=Cabinet.Personal
+inner join Servicii
+on Servicii.Cabinet=Cabinet.Cod
+
+
+20--*/ Show the patient first and last name, prescription type and date of registration
+
+select Pacient.Nume, Pacient.Prenume, Reteta.Tip, Inregistrari.Data_inregistrare from Inregistrari 
+inner join Pacient 
+on Pacient.CNP=Inregistrari.Pacient
+inner join Reteta
+on Pacient.Nume=Reteta.Pacient
+
+--Stored procedures-- 
+
+21--*/ Create a stored procedure which shows the taxed receipts
+if object_id ('ImpIncasari') is not null
+drop  procedure ImpIncasari
+
+create procedure ImpIncasari
+@ProcentImpozit float
+as update Factura
+set Valoare=Valoare-@ProcentImpozit/100*Valoare
+from Factura 
+select sum(Valoare) as IncasariImpozitate from Factura 
+
+exec ImpIncasari 10
+
+
+22--*/ Create a stored procedure which increases the salaries of all employees with 1%
+if  exists (select * from sys.objects where type='p' and name= CrestereSalariu)
+drop procedure CrestereSalariu
+
+create procedure CrestereSalariu
+@CrestSal float
+as update Personal
+set Personal.Salariu= Personal.Salariu+ @CrestSal*Personal.Salariu 
+from Personal 
+
+exec CrestereSalariu 10
+
+select * from Personal 
+
+
+23--*/ Create a stored procedure which calculates the final salaries of employees taxed and based on seniority
+
+alter table Personal 
+add ProcentVechime int
+
+Update Personal 
+set ProcentVechime=1
+where Vechime<3
+
+if object_id ('SalariuNet') is not null 
+drop procedure SalariuNet
+
+create procedure SalariuNet
+@Impozite float
+as update Personal 
+set Salariu=Salariu-@Impozite/100*ProcentVechime/100*Salariu
+from Personal
+exec SalariuNet 45.5
+
+--Views-- 
+
+24--*/ Create a view which sums all bills
+if object_id ('SumaFacturi') is not null
+drop view SumaFacturi 
+
+create view SumaFacturi 
+as 
+select sum(Valoare) as TotalIncasari From Factura
+
+select * from SumaFacturi
+
+
+25--*/ Create a view which shows the duration of patients' treatments
+if object_id ('DurataTratament')is not null
+drop view DurataTratament
+
+create view DurataTratament
+as
+select Datediff(month, Data_inceput, Data_sfarsit) as DurataTratament from Tratament
+
+select * from DurataTratament
+
+
+26--*/ Create a view which shows the patient and its prescriptions
+if object_id ('RetetePacient') is not null
+drop view RetetePacient
+
+create view RetetePacient
+as 
+select Pacient.Nume, Pacient.Prenume, Reteta.Cod, Reteta.Tip from Pacient  
+inner join Reteta 
+on Reteta.Pacient=Pacient.CNP
+
+select * from RetetePacient 
+order by Nume
+
+
+27--*/ Create a view that calculates the amount of tax rates
+if object_id ('SumaProcImp') is not null
+drop view SumaProcImp 
+
+create view SumaProcImp
+as
+select sum(Procent) as SumaProcente from Impozite
+
+select * from SumaProcImp
+
+
+28--*/ Create a view which shows specialized posts
+
+create view PostSpecializat
+as 
+select Tip, Specializari from Specializari
+inner join Post
+on Specializari.Post= Post.Cod
+
+select * from PostSpecializat
+
+
+29--*/ Create a view that shows which staff made the appointments
+if object_id('ProgramariFacute') is not null
+drop view ProgramariFacute 
+
+create view ProgramariFacute
+as
+select Personal.Nume, Personal.Prenume, Data_Programarii from Programari 
+inner join Personal 
+on Personal.CNP=Programari.Personal
+
+select * from ProgramariFacute 
+
+
+--Triggers--
+
+30--*/ Create a trigger that shows a message when a new employee is added
+
+if OBJECT_ID('TrInsert') is not null 
+drop trigger TrInsert
+go
+
+create trigger TrInsert 
+on Personal 
+after insert 
+as
+begin
+print 'A fost adaugat un nou angajat!'
+end 
+
+insert into Personal values ('2590718520028', 'Gheorghita','Francesca', 'str. MIhai Viteazul nr 372', 15, 2800, '+40758931897' )
+
+
+31--*/ Create a trigger thats shows a message when a new appointment is added
+
+if object_id ('TrProgramari') is not null
+drop trigger TrProgramari 
+go
+
+create trigger TrProgramari 
+on Programari 
+after insert
+as 
+begin 
+print 'A fost adaugata o noua programare!'
+end 
+
+insert into Programari values (7, '2021-02-01','15:30','1810515210064' ,'1830529140021',985, 'efectuata')
+
+
+32--*/ Create a trigger that shows a message after updating patient data (eg. occupation)
+
+if object_id ('TrUpdateOcupatie') is not null
+drop trigger TrUpdateOcupatie  
+go
+
+create trigger TrUpdateOcupatie 
+on Pacient 
+after update 
+as begin 
+print 'A fost actualizata ocupatia pacientului!'
+end 
+
+update Pacient 
+set Ocupatia = 'pensionar'
+where CNP='2510715330020'
+
+
+33--*/ Create a trigger that shows a message if a diagnosis was updated
+
+if OBJECT_ID ('TRDiagnostic') is not null
+drop trigger TRDiagnostic 
+
+create trigger TRDiagnostic
+on Inregistrari 
+for update  
+as
+begin
+if update (Diagnostic)
+print 'A fost modificat un diagnostic'
+end 
+
+update Inregistrari
+set Diagnostic='nu exista diagnostic'
+where Pacient='6020724440029'
+select * from Inregistrari
+
+
+34--*/ Create a trigger that shows a message when patient's treatment period updates
+
+if OBJECT_ID ('TRTratament') is not null
+drop trigger TRTratament 
+
+create trigger TRTratament
+on Tratament
+for update  
+as
+begin
+if update (Data_inceput) and update (Data_sfarsit)
+print 'A fost modificata perioada de tratament'
+end 
+
+update Tratament
+set Data_inceput='2020-06-20', Data_sfarsit='2020-09-27'
+where ID=1
+
+
+35--*/ Create a trigger that shows a message when prescription type updates
+
+if OBJECT_ID ('TRReteta') is not null
+drop trigger TRReteta
+
+create trigger TRReteta
+on Reteta
+for update  
+as
+begin
+if update (Tip)
+print 'A fost modificat tipul retetei'
+end 
+
+update Reteta
+set Tip='integrala'
+where Cod=1
+
+
+36--*/ Create a trigger that shows a message when an apointment was done, canceled or delayed
+if OBJECT_ID ('TREfect_Prog') is not null
+drop trigger TREfect_Prog
+
+create trigger TREfect_Prog
+on Programari 
+for update  
+as
+begin
+if update (Efectuare_programare)
+print 'A fost modificata coloana pentru efectuarea programarilor'
+end 
+
+update Programari
+set Efectuare_programare='anulata'
+where Cod_programare=1
+
+
+37--*/ create a trigger that shows a message when a new post is added
+if OBJECT_ID ('TRpost') is not null
+drop trigger TRpost
+
+create trigger TRPost
+on Post
+after insert  
+as
+begin
+print 'A fost inserat un post'
+end 
+
+insert into Post values  (21,'relatii cu publicul','2641121120057')
+
+select * from Post 
+
+
+38--*/ Create a trigger that shows a message when a new specialization is added 
+if OBJECT_ID ('TRSpecializare') is not null
+drop trigger TRSpecializare
+
+create trigger TRSpecializare 
+on Specializari
+after insert  
+as
+begin
+print 'A fost inserata o noua specializare'
+end 
+
+insert into Specializari values  (8,'neurologie',5)
+
+select * from Specializari 
+
+
+39--*/ Create a trigger that shows a message when the patient's job is updated 
+if OBJECT_ID ('TRPacient') is not null
+drop trigger TRPacient
+
+create trigger TRPacient 
+on Pacient
+for update  
+as
+begin
+if update (Loc_de_munca)
+print 'a fost modificat locul de munca'
+end 
+
+update Pacient 
+set Loc_de_munca='RoTour'
+where CNP='2390818330068
+
+
+40--*/ Create a trigger that shows a message when a new medicine is added 
+if OBJECT_ID ('TRMedicament') is not null
+drop trigger TRMedicament
+
+create trigger TRMedicament
+on Medicament 
+after insert  
+as
+begin
+print 'a fost adaugat un nou medicament'
+end 
+
+insert into Medicament values (5, 'augumentin','de doua ori pe zi inainte de masa ', 6, 8)
+
+
