@@ -374,7 +374,7 @@ inner join Reteta
 on Medicament.Reteta=Reteta.Cod
 
 
-6--*/ Show the employyes posts
+6--*/ Show the employees posts
 
 select Personal.Nume, Personal.Prenume, Post.Tip from Post  
 inner Join Personal 
@@ -418,6 +418,7 @@ select * from Personal where Salariu= (select Max(Personal.Salariu) as CelMaiMar
 
 
 13--*/ Count the highest salaries of employees
+
 select count(Salariu) NrSalariilorCeleMaiMari from Personal where Salariu in (select Max(Salariu) from Personal) 
 
 
@@ -478,6 +479,7 @@ on Pacient.Nume=Reteta.Pacient
 --Stored procedures-- 
 
 21--*/ Create a stored procedure which shows the taxed receipts
+
 if object_id ('ImpIncasari') is not null
 drop  procedure ImpIncasari
 
@@ -492,6 +494,7 @@ exec ImpIncasari 10
 
 
 22--*/ Create a stored procedure which increases the salaries of all employees with 1%
+
 if  exists (select * from sys.objects where type='p' and name= CrestereSalariu)
 drop procedure CrestereSalariu
 
@@ -528,6 +531,7 @@ exec SalariuNet 45.5
 --Views-- 
 
 24--*/ Create a view which sums all bills
+
 if object_id ('SumaFacturi') is not null
 drop view SumaFacturi 
 
@@ -564,6 +568,7 @@ order by Nume
 
 
 27--*/ Create a view that calculates the amount of tax rates
+
 if object_id ('SumaProcImp') is not null
 drop view SumaProcImp 
 
@@ -586,6 +591,7 @@ select * from PostSpecializat
 
 
 29--*/ Create a view that shows which staff made the appointments
+
 if object_id('ProgramariFacute') is not null
 drop view ProgramariFacute 
 
@@ -617,7 +623,7 @@ end
 insert into Personal values ('2590718520028', 'Gheorghita','Francesca', 'str. MIhai Viteazul nr 372', 15, 2800, '+40758931897' )
 
 
-31--*/ Create a trigger thats shows a message when a new appointment is added
+31--*/ Create a trigger that shows a message when a new appointment is added
 
 if object_id ('TrProgramari') is not null
 drop trigger TrProgramari 
@@ -711,6 +717,7 @@ where Cod=1
 
 
 36--*/ Create a trigger that shows a message when an apointment was done, canceled or delayed
+
 if OBJECT_ID ('TREfect_Prog') is not null
 drop trigger TREfect_Prog
 
@@ -729,6 +736,7 @@ where Cod_programare=1
 
 
 37--*/ create a trigger that shows a message when a new post is added
+
 if OBJECT_ID ('TRpost') is not null
 drop trigger TRpost
 
@@ -746,6 +754,7 @@ select * from Post
 
 
 38--*/ Create a trigger that shows a message when a new specialization is added 
+
 if OBJECT_ID ('TRSpecializare') is not null
 drop trigger TRSpecializare
 
@@ -763,6 +772,7 @@ select * from Specializari
 
 
 39--*/ Create a trigger that shows a message when the patient's job is updated 
+
 if OBJECT_ID ('TRPacient') is not null
 drop trigger TRPacient
 
@@ -781,6 +791,7 @@ where CNP='2390818330068
 
 
 40--*/ Create a trigger that shows a message when a new medicine is added 
+
 if OBJECT_ID ('TRMedicament') is not null
 drop trigger TRMedicament
 
@@ -793,5 +804,4 @@ print 'a fost adaugat un nou medicament'
 end 
 
 insert into Medicament values (5, 'augumentin','de doua ori pe zi inainte de masa ', 6, 8)
-
 
